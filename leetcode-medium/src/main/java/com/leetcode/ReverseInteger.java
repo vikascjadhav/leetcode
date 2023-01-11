@@ -1,21 +1,21 @@
 package com.leetcode;
 
-import java.util.concurrent.ThreadLocalRandom;
-import java.util.stream.Stream;
-
 public class ReverseInteger {
 
     public static void main(String[] args) {
         ReverseInteger r = new ReverseInteger();
         // ThreadLocalRandom.current().ints().limit(5).m
-        System.out.println(r.reverse(123));;
+
+        int result = r.reverse(1534236469);
+        System.out.println(result);
+        // int compare = 9646324351;
     }
 
-    int digitValue(int digits, int rem) {
+    long digitValue(int digits, int rem) {
         if (digits == 1) {
             return rem;
         }
-        int sum = 1;
+        long sum = 1;
         for (int i = 1; i < digits; i++) {
             sum = sum * 10;
         }
@@ -24,27 +24,33 @@ public class ReverseInteger {
 
     public int reverse(int x) {
 
-        int temp = Math.abs(x);
+        int temp = x;
         int digits = 0;
-        while (temp > 0) {
+        while (temp > 0 || (temp) != 0) {
             digits++;
             temp = temp / 10;
         }
-        temp = Math.abs(x);
-        int sum = 0;
-        while (digits >= 0) {
+        temp = x;
+        long sum = 0;
+        if ((Integer.MAX_VALUE < x && x > 0) || (x < 0 && x < Integer.MIN_VALUE))
+            return 0;
+        while (digits > 0) {
+
 
             int rem = temp % 10;
+            long digitValue = digitValue(digits, rem);
 
-            sum = sum + digitValue(digits, rem);
+
+            sum = sum + digitValue;
             digits--;
             temp = temp / 10;
+            if ((Integer.MAX_VALUE < sum && sum > 0) || (sum < 0 && sum < Integer.MIN_VALUE))
+                return 0;
         }
 
-        if (x < 0) {
-            sum = -sum;
-        }
+        if ((Integer.MIN_VALUE > sum))
+            return 0;
 
-        return sum;
+        return (int) sum;
     }
 }
